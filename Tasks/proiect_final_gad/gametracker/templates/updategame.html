@@ -1,0 +1,19 @@
+{% for field in update_game_form %}
+    {% if field.label == "game_id" %}
+      <div class="mb-3">
+        <select name="game_id" id="game_id" class="form-select" aria-label="Select a game that will be updated">
+        <option value="default" selected>Select the game to update</option>
+          {% for game in user_games %}
+              <option value="{{game.id}}">{{game.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    {% elif field.label == "user" %}
+      <input type="number" name="user_id" class="invisible d-none" required value="{{request.user.id}}" id="id_user_id">
+    {% else %}
+    <div class="mb-3">
+      <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
+      {{field}}
+    </div>
+    {% endif %}
+{% endfor %}

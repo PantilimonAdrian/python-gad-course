@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div id="profile-bg-div" class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="rounded-4 m-4 p-4 profile-container">
+            <div class="container">
+                <div class="row m-2 p-2">
+                    <div class="col-md p-2">
+                        <img id="profile-pic" src="{% static 'static/images/gamer.png'%}" alt="Gametracker Logo" class="rounded d-block">
+                    </div>
+                    <div class="col-md p-2 d-flex align-items-center justify-content-start">
+                        <p class="mb-0"> Welcome,<br> {{first_name}} {{last_name}}</p>
+                    </div>
+                    <div class="col-md p-2 d-flex align-items-center justify-content-end">
+                        <p class="mb-0">Total hours played: {{total_hours_played}}</p>
+                    </div>
+                </div>
+                <div class="row m-2 p-2 d-flex">
+                    <hr class="mt-1 mb-1"/>
+                </div>
+                <div class="row m-2 p-2 d-flex ">
+                    {% if user_game_history%}
+                    <table class="table mb-0 table-striped border border-info rounded">
+                      <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Game name</th>
+                            <th scope="col">Platform</th>
+                            <th scope="col">Hours played</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Year played</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for game in user_game_history %}
+                        <tr>
+                            <th scope="row"></th>
+                            <td>{{game.name}}</td>
+                            <td>{{game.platform}}</td>
+                            <td class="text-end">{{game.hours_played}} h</td>
+                            <td class="text-end">{{game.rating}}*</td>
+                            <td class="text-end">{{game.year_played}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-info" role="alert">
+                        Sorry, it seems that you dont have any games added to your oddysey.
+                        Go to the <a href="{% url 'add_game_page' %}" class="alert-link">add page</a> and add your first game!
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col pt-2 align-self-center d-flex justify-content-center">
+                      <a href="{% url 'home' %}" role="button" class="me-2 btn btn-secondary">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

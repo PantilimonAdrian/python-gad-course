@@ -1,0 +1,10 @@
+{% for field in add_game_form %}
+  {% if field.label != "user" %}
+    <div class="mb-3">
+        <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
+      {{field}}
+    </div>
+  {% else %}
+    <input type="number" name="user_id" class="invisible d-none" required value="{{request.user.id}}" id="id_user_id">
+  {% endif %}
+{% endfor %}

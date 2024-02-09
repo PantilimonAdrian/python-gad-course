@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div id="home-bg-div" class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="rounded-4 m-4 p-4 login-modal-div">
+        {% if request.user.is_authenticated %}
+            <div class="container text-center --container-restriction">
+                <div class="row m-2 p-2 d-flex justify-content-center">
+                    <img id="welcome-homepage-pic" src="{% static 'static/images/gamer.png'%}" alt="Gametracker Logo" class="rounded d-block">
+                </div>
+                <div class="row m-2 p-2 text-center">
+                    <h3 class="text-info-emphasis">Welcome to GameTracker</h3>
+                    <p class="m-0 fs-4 fw-medium">{{request.user.first_name}} {{request.user.last_name}}</p>
+                </div>
+                <div class="row m-2 p-2">
+                    <div class="col px-4 align-self-center d-flex flex-column justify-content-center">
+                        <a href="{% url 'profile_page' %}" role="button" class="my-1 btn btn-outline-primary">Profile/Journal</a>
+                        <a href="{% url 'add_game_page' %}" role="button" class="my-1 btn btn-outline-primary">Add game to journal</a>
+                        <a href="{% url 'update_game_page' %}" role="button" class="my-1 btn btn-outline-primary">Update game information</a>
+                        <a href="{% url 'remove_game_page' %}" role="button" class="my-1 btn btn-outline-primary">Remove game from journal</a>
+                        <a href="{% url 'logout_user' %}" role="button" class="my-1 btn btn-warning">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="container text-center --container-restriction">
+                <div class="row m-2 p-2 d-flex">
+                    <img id="homepage-image" src="{% static 'static/images/controller.png'%}" alt="Gametracker Logo" class="mx-auto rounded d-block img-fluid">
+                </div>
+                <div class="row m-2 p-2 text-center">
+                    <h2 class="text-info-emphasis">{{application_name}}</h2>
+                    <p class="mb-1 fw-medium">{{application_moto}}</p>
+                </div>
+                <div class="row m-2 p-2 text-center">
+                    <p class="mb-1 fw-bold text-info-emphasis">
+                        {{application_desc}}
+                    </p>
+                </div>
+                <div class="row m-2 p-2">
+                    <div class="col align-self-center d-flex flex-column justify-content-center">
+                        <a href="{% url 'register_user' %}" role="button" class="my-1 btn btn-outline-primary">Register</a>
+                        <a href="{% url 'login_user' %}" role="button" class="my-1 btn btn-primary">Sign In</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

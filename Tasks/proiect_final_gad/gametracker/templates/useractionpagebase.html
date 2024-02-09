@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div id="home-bg-div" class="d-flex justify-content-center align-items-center min-vh-100">
+      <div class="rounded-4 m-4 p-4 login-modal-div">
+        <div class="flex-container --container-restriction">
+          <div class="row m-2 p-2 d-flex">
+            <img id="action-image"
+                 {% if is_addgame_page %}
+                 src="{% static 'static/images/addgame.png'%}"
+                 {% elif is_removegame_page %}
+                 src="{% static 'static/images/removegame.png'%}"
+                 {% elif is_updategame_page %}
+                 src="{% static 'static/images/updategame.png'%}"
+                 {%endif%}
+                 alt="{{action_img_desc}}"
+                 class="mx-auto rounded d-block img-fluid">
+          </div>
+          <div class="row m-2 p-2 text-center">
+            <h2 class="text-info-emphasis">{{action_title}}</h2>
+            <p class="mb-1 fw-medium">{{action_description}}</p>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              {% if error_message or add_game_form.errors %}
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {% if error_message %}
+                      {{error_message}}
+                    {% else %}
+                      {% for _, field_error in add_game_form.errors.items %}
+                      {{ field_error | striptags }} </br>
+                      {% endfor %}
+                    {% endif %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              {% endif %}
+              {% if success_message %}
+              <div class="alert alert-success" role="alert">
+                {{success_message}}
+              </div>
+              {% endif %}
+              <form
+                  {% if is_addgame_page %}
+                    action="{% url 'add_game_page' %}"
+                  {% elif is_removegame_page %}
+                    action="{% url 'remove_game_page' %}"
+                  {% elif is_updategame_page %}
+                    action="{% url 'update_game_page' %}"
+                  {% endif %}
+                  method="POST"
+              >
+                {% csrf_token %}
+                {% if is_addgame_page %}
+                  {% include "./addgame.html" %}
+                {% elif is_removegame_page %}
+                  {% include "./removegame.html" %}
+                {% elif is_updategame_page %}
+                  {% include "./updategame.html" %}
+                {% endif %}
+                <div class="col pt-2 mt-2 align-self-center d-flex justify-content-center">
+                  <a href="{% url 'home' %}" role="button" class="me-2 btn btn-secondary">Back</a>
+                  <button type="submit" class="btn btn-primary">{{form_button_text}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+#home-bg-div,
+#profile-bg-div{
+    background-color: #2a6f97;
+}
+
+.login-modal-div,
+.profile-container{
+    background-color: #f8f9fa;
+}
+
+#homepage-image{
+    max-height: auto;
+    max-width: 200px;
+}
+
+#profile-pic{
+    max-height: auto;
+    max-width: 80px;
+}
+
+#welcome-homepage-pic,
+#action-image{
+    max-height: auto;
+    max-width: 125px;
+}
+
+.--container-restriction {
+    max-width: 500px;
+}
+
+--journal-table-restriction {
+    min-width: 920px !important;
+}

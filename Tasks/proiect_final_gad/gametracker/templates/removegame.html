@@ -1,0 +1,7 @@
+<select name="game_id" id="game_id" class="form-select" aria-label="Select a game that will be removed">
+  <option value="default" selected>Select the game to remove</option>
+  {% for game in user_games %}
+    <option value="{{game.id}}">{{game.name}}</option>
+  {% endfor %}
+</select>
+<input type="number" name="user_id" class="invisible d-none" required value="{{request.user.id}}" id="id_user_id">

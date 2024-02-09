@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div id="home-bg-div" class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="rounded-4 m-4 p-4 login-modal-div">
+        <div class="flex-container --container-restriction">
+            <div class="row m-2 p-2 d-flex">
+                <img id="homepage-image" src="{% static 'static/images/controller.png'%}" alt="Gametracker Logo" class="mx-auto rounded d-block img-fluid">
+            </div>
+            <div class="row m-2 p-2 text-center">
+                <h2 class="text-info-emphasis">{{application_name}}</h2>
+                <p class="mb-1 fw-medium">{{marketing_message |safe|escape}}</p>
+            </div>
+            {% if error_message or register_form.errors %}
+            <div class="alert alert-danger alert-dismissible fade show w-75" role="alert">
+                {% if error_message %}
+                    {{error_message}}
+                {% else %}
+                    {% for _, field_error in register_form.errors.items %}
+                        {{ field_error | striptags }} </br>
+                    {% endfor %}
+                {% endif %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            <form action="{% url 'login_user' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="next_url" class="invisible d-none" value="{{next_url}}" id="next_url">
+                <div class="col m-2 align-self-center d-flex flex-column justify-content-center align-items-center">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" class="form-control w-75" id="username" name="username">
+                </div>
+                <div class="col m-2 align-self-center d-flex flex-column justify-content-center align-items-center">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" class="form-control w-75" id="password" name="password">
+                </div>
+                <div class="col pt-2 align-self-center d-flex justify-content-center">
+                    <a href="{% url 'home' %}" role="button" class="me-2 btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
