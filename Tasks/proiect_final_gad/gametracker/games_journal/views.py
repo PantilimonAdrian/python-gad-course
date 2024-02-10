@@ -67,10 +67,6 @@ def addgamepage(request):
     if request.method == "POST":
         add_game_form = AddGameToHistoryForm(request.POST)
         # Check if information provided to the register form is valid
-        print(add_game_form.is_valid())
-        print(add_game_form.errors)
-        print(add_game_form)
-        print(request.POST)
         if add_game_form.is_valid():
             game_added = add_game_form.save(commit=False)
             game_added.user_id = request.POST["user_id"]
@@ -146,9 +142,9 @@ def updategameinfo(request):
             env["update_game_form"] = UpdateGameForm()
         else:
             env["error_message"] = UPDATE_ERROR_MESSAGE
-    else:
-        update_game_form = UpdateGameForm()
-        env["update_game_form"] = update_game_form
+
+    update_game_form = UpdateGameForm()
+    env["update_game_form"] = update_game_form
 
     return render(request, "useractionpagebase.html", context=env)
 
